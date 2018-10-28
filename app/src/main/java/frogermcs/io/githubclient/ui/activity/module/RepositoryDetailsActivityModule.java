@@ -11,22 +11,11 @@ import frogermcs.io.githubclient.ui.activity.presenter.RepositoryDetailsActivity
  * Created by Miroslaw Stanek on 23.04.15.
  */
 @Module
-public class RepositoryDetailsActivityModule {
-    private RepositoryDetailsActivity repositoryDetailsActivity;
-
-    public RepositoryDetailsActivityModule(RepositoryDetailsActivity repositoryDetailsActivity) {
-        this.repositoryDetailsActivity = repositoryDetailsActivity;
-    }
+public abstract class RepositoryDetailsActivityModule {
 
     @Provides
     @ActivityScope
-    RepositoryDetailsActivity provideRepositoryDetailsActivity() {
-        return repositoryDetailsActivity;
-    }
-
-    @Provides
-    @ActivityScope
-    RepositoryDetailsActivityPresenter provideRepositoryDetailsActivityPresenter(User user) {
+    static RepositoryDetailsActivityPresenter provideRepositoryDetailsActivityPresenter( RepositoryDetailsActivity repositoryDetailsActivity, User user ) {
         return new RepositoryDetailsActivityPresenter(repositoryDetailsActivity, user);
     }
 }

@@ -57,7 +57,9 @@ public class RepositoryDetailsActivity extends BaseActivity {
     @Override
     protected void setupActivityComponent() {
         GithubClientApplication.get(this).getUserComponent()
-                .plus(new RepositoryDetailsActivityModule(this))
+                .repositoryDetailsActivityComponentBuilder()
+                .repositoryDetailsActivity( this )
+                .build()
                 .inject(this);
 
     }

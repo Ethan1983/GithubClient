@@ -73,7 +73,9 @@ public class SplashActivity extends BaseActivity {
         //Debug.startMethodTracing("SplashTrace");
         GithubClientApplication.get(this)
                 .getAppComponent()
-                .plus(new SplashActivityModule(this))
+                .splashActivityComponentBuilder()
+                .splashActivity( this )
+                .build()
                 .inject(this);
         //Debug.stopMethodTracing();
     }

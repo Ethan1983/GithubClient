@@ -20,11 +20,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Miroslaw Stanek on 22.04.15.
  */
 @Module
-public class GithubApiModule {
+public abstract class GithubApiModule {
 
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient() {
+    static OkHttpClient provideOkHttpClient() {
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
         if (BuildConfig.DEBUG) {
@@ -41,7 +41,7 @@ public class GithubApiModule {
 
     @Provides
     @Singleton
-    public Retrofit provideRestAdapter(Application application, OkHttpClient okHttpClient) {
+    static Retrofit provideRestAdapter(Application application, OkHttpClient okHttpClient) {
         Retrofit.Builder builder = new Retrofit.Builder();
         builder.client(okHttpClient)
                 .baseUrl(application.getString(R.string.endpoint))
@@ -52,13 +52,13 @@ public class GithubApiModule {
 
     @Provides
     @Singleton
-    public GithubApiService provideGithubApiService(Retrofit restAdapter) {
+    static GithubApiService provideGithubApiService(Retrofit restAdapter) {
         return restAdapter.create(GithubApiService.class);
     }
 
     @Provides
     @Singleton
-    public UserManager provideUserManager(GithubApiService githubApiService) {
+    static UserManager provideUserManager(GithubApiService githubApiService) {
         return new UserManager(githubApiService);
     }
 }

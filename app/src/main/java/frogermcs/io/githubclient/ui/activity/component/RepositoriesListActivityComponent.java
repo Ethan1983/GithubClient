@@ -1,5 +1,6 @@
 package frogermcs.io.githubclient.ui.activity.component;
 
+import dagger.BindsInstance;
 import dagger.Subcomponent;
 import frogermcs.io.githubclient.ui.activity.ActivityScope;
 import frogermcs.io.githubclient.ui.activity.RepositoriesListActivity;
@@ -16,5 +17,13 @@ import frogermcs.io.githubclient.ui.activity.presenter.RepositoriesListActivityP
 public interface RepositoriesListActivityComponent {
 
     RepositoriesListActivity inject(RepositoriesListActivity repositoriesListActivity);
+
+    @Subcomponent.Builder
+    interface Builder {
+
+        @BindsInstance Builder repositoriesListActivity( RepositoriesListActivity repositoriesListActivity );
+        RepositoriesListActivityComponent build();
+
+    }
 
 }

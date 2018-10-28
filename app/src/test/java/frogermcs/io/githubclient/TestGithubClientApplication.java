@@ -1,5 +1,6 @@
 package frogermcs.io.githubclient;
 
+import frogermcs.io.githubclient.ui.activity.SplashActivity;
 import frogermcs.io.githubclient.ui.activity.component.SplashActivityComponent;
 import frogermcs.io.githubclient.ui.activity.module.SplashActivityModule;
 
@@ -20,7 +21,7 @@ public class TestGithubClientApplication
     public AppComponent getAppComponent() {
         if (appComponent == null) {
             appComponent = mock(AppComponent.class);
-            when(appComponent.plus(any(SplashActivityModule.class)))
+            when(appComponent.splashActivityComponentBuilder().splashActivity(any(SplashActivity.class)).build())
                     .thenReturn(splashActivityComponent);
         }
 

@@ -13,34 +13,23 @@ import frogermcs.io.githubclient.utils.Validator;
  * Created by Miroslaw Stanek on 22.04.15.
  */
 @Module
-public class AppModule {
-    private Application application;
-
-    public AppModule(Application application) {
-        this.application = application;
-    }
+public abstract class AppModule {
 
     @Provides
     @Singleton
-    public Application provideApplication() {
-        return application;
-    }
-
-    @Provides
-    @Singleton
-    AnalyticsManager provideAnalyticsManager() {
+    static AnalyticsManager provideAnalyticsManager( Application application ) {
         return new AnalyticsManager(application);
     }
 
     @Provides
     @Singleton
-    Validator provideValidator() {
+    static Validator provideValidator() {
         return new Validator();
     }
 
     @Provides
     @Singleton
-    HeavyExternalLibrary provideHeavyExternalLibrary() {
+    static HeavyExternalLibrary provideHeavyExternalLibrary() {
         HeavyExternalLibrary heavyExternalLibrary = new HeavyExternalLibrary();
         heavyExternalLibrary.init();
         return heavyExternalLibrary;
@@ -48,7 +37,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    HeavyLibraryWrapper provideLibraryWrapper() {
+    static HeavyLibraryWrapper provideLibraryWrapper() {
         return new HeavyLibraryWrapper();
     }
 }

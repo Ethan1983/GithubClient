@@ -14,23 +14,12 @@ import frogermcs.io.githubclient.utils.Validator;
  * Created by Miroslaw Stanek on 23.04.15.
  */
 @Module
-public class SplashActivityModule {
-    private SplashActivity splashActivity;
-
-    public SplashActivityModule(SplashActivity splashActivity) {
-        this.splashActivity = splashActivity;
-    }
+public abstract class SplashActivityModule {
 
     @Provides
     @ActivityScope
-    SplashActivity provideSplashActivity() {
-        return splashActivity;
-    }
-
-    @Provides
-    @ActivityScope
-    SplashActivityPresenter
-    provideSplashActivityPresenter(Validator validator, UserManager userManager, HeavyLibraryWrapper heavyLibraryWrapper) {
+    static SplashActivityPresenter
+    provideSplashActivityPresenter(SplashActivity splashActivity, Validator validator, UserManager userManager, HeavyLibraryWrapper heavyLibraryWrapper) {
         return new SplashActivityPresenter(splashActivity, validator, userManager, heavyLibraryWrapper);
     }
 }

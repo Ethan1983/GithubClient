@@ -23,56 +23,45 @@ import frogermcs.io.githubclient.ui.adapter.viewholder.RepositoryViewHolderNorma
  * Created by Miroslaw Stanek on 23.04.15.
  */
 @Module
-public class RepositoriesListActivityModule {
-    private RepositoriesListActivity repositoriesListActivity;
-
-    public RepositoriesListActivityModule(RepositoriesListActivity repositoriesListActivity) {
-        this.repositoriesListActivity = repositoriesListActivity;
-    }
+public abstract class RepositoriesListActivityModule {
 
     @Provides
     @ActivityScope
-    RepositoriesListActivity provideRepositoriesListActivity() {
-        return repositoriesListActivity;
-    }
-
-    @Provides
-    @ActivityScope
-    RepositoriesListActivityPresenter provideRepositoriesListActivityPresenter(RepositoriesManager repositoriesManager) {
+    static RepositoriesListActivityPresenter provideRepositoriesListActivityPresenter(RepositoriesListActivity repositoriesListActivity, RepositoriesManager repositoriesManager) {
         return new RepositoriesListActivityPresenter(repositoriesListActivity, repositoriesManager);
     }
 
     @Provides
     @ActivityScope
-    RepositoriesListAdapter provideRepositoriesListAdapter(RepositoriesListActivity repositoriesListActivity,
+    static RepositoriesListAdapter provideRepositoriesListAdapter(RepositoriesListActivity repositoriesListActivity,
                                                            Map<Integer, RepositoriesListViewHolderFactory> viewHolderFactories) {
         return new RepositoriesListAdapter(repositoriesListActivity, viewHolderFactories);
     }
 
     @Provides
     @ActivityScope
-    LinearLayoutManager provideLinearLayoutManager(RepositoriesListActivity repositoriesListActivity) {
+    static LinearLayoutManager provideLinearLayoutManager(RepositoriesListActivity repositoriesListActivity) {
         return new LinearLayoutManager(repositoriesListActivity);
     }
 
     @Provides
     @IntoMap
     @IntKey(Repository.TYPE_NORMAL)
-    RepositoriesListViewHolderFactory provideViewHolderNormal() {
+    static RepositoriesListViewHolderFactory provideViewHolderNormal() {
         return new RepositoryViewHolderNormalFactory();
     }
 
     @Provides
     @IntoMap
     @IntKey(Repository.TYPE_BIG)
-    RepositoriesListViewHolderFactory provideViewHolderBig() {
+    static RepositoriesListViewHolderFactory provideViewHolderBig() {
         return new RepositoryViewHolderBigFactory();
     }
 
     @Provides
     @IntoMap
     @IntKey(Repository.TYPE_FEATURED)
-    RepositoriesListViewHolderFactory provideViewHolderFeatured() {
+    static RepositoriesListViewHolderFactory provideViewHolderFeatured() {
         return new RepositoryViewHolderFeaturedFactory();
     }
 }

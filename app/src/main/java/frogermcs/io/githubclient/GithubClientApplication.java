@@ -35,12 +35,12 @@ import timber.log.Timber;
 
     private void initAppComponent() {
         appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
+                .application( this )
                 .build();
     }
 
     public UserComponent createUserComponent(User user) {
-        userComponent = appComponent.plus(new UserModule(user));
+        userComponent = appComponent.userComponentBuilder().user(user).build();
         return userComponent;
     }
 

@@ -2,6 +2,7 @@ package frogermcs.io.githubclient.ui.activity.component;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;
+import frogermcs.io.githubclient.ComponentBuilder;
 import frogermcs.io.githubclient.ui.activity.ActivityScope;
 import frogermcs.io.githubclient.ui.activity.RepositoryDetailsActivity;
 import frogermcs.io.githubclient.ui.activity.module.RepositoryDetailsActivityModule;
@@ -18,10 +19,9 @@ public interface RepositoryDetailsActivityComponent {
     RepositoryDetailsActivity inject(RepositoryDetailsActivity repositoryDetailsActivity);
 
     @Subcomponent.Builder
-    interface Builder {
+    interface Builder extends ComponentBuilder<RepositoryDetailsActivityComponent> {
 
         @BindsInstance Builder repositoryDetailsActivity( RepositoryDetailsActivity repositoryDetailsActivity);
-        RepositoryDetailsActivityComponent build();
 
     }
 

@@ -2,6 +2,7 @@ package frogermcs.io.githubclient.ui.activity.component;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;
+import frogermcs.io.githubclient.ComponentBuilder;
 import frogermcs.io.githubclient.ui.activity.ActivityScope;
 import frogermcs.io.githubclient.ui.activity.SplashActivity;
 import frogermcs.io.githubclient.ui.activity.module.SplashActivityModule;
@@ -19,9 +20,8 @@ public interface SplashActivityComponent {
     SplashActivity inject(SplashActivity splashActivity);
 
     @Subcomponent.Builder
-    interface Builder {
+    interface Builder extends ComponentBuilder<SplashActivityComponent> {
         @BindsInstance Builder splashActivity(SplashActivity splashActivity );
-        SplashActivityComponent build();
     }
 
 }

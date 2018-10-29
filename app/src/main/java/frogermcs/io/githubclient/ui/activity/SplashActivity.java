@@ -18,6 +18,7 @@ import butterknife.OnClick;
 import frogermcs.io.githubclient.GithubClientApplication;
 import frogermcs.io.githubclient.R;
 import frogermcs.io.githubclient.data.model.User;
+import frogermcs.io.githubclient.ui.activity.component.SplashActivityComponent;
 import frogermcs.io.githubclient.ui.activity.presenter.SplashActivityPresenter;
 import frogermcs.io.githubclient.utils.AnalyticsManager;
 import rx.Subscription;
@@ -69,9 +70,10 @@ public class SplashActivity extends BaseActivity {
     protected void setupActivityComponent() {
         //Uncomment those lines do measure dependencies creation time
         //Debug.startMethodTracing("SplashTrace");
-        GithubClientApplication.get(this)
-                .getSplashActivityComponentBuilder()
-                .splashActivity( this )
+        final SplashActivityComponent.Builder builder = (SplashActivityComponent.Builder) GithubClientApplication.get(this)
+                .getComponentBuilder( SplashActivityComponent.class );
+
+        builder.splashActivity( this )
                 .build()
                 .inject(this);
         //Debug.stopMethodTracing();

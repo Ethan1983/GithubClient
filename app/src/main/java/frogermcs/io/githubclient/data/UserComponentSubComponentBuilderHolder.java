@@ -1,11 +1,17 @@
 package frogermcs.io.githubclient.data;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
+import frogermcs.io.githubclient.ComponentBuilder;
 import frogermcs.io.githubclient.ui.activity.component.RepositoriesListActivityComponent;
 import frogermcs.io.githubclient.ui.activity.component.RepositoryDetailsActivityComponent;
 
 public class UserComponentSubComponentBuilderHolder {
+
+    @Inject
+    Map< Class<?>, ComponentBuilder> mapComponentBuilders;
 
     @Inject
     RepositoriesListActivityComponent.Builder repositoriesListActivityComponentBuilder;
@@ -19,12 +25,8 @@ public class UserComponentSubComponentBuilderHolder {
 
     }
 
-    public RepositoriesListActivityComponent.Builder getRepositoriesListActivityComponentBuilder() {
-        return repositoriesListActivityComponentBuilder;
-    }
-
-    public RepositoryDetailsActivityComponent.Builder getRepositoryDetailsActivityComponentBuilder() {
-        return repositoryDetailsActivityComponentBuilder;
+    public ComponentBuilder getComponentBuilder( Class<?> clazz) {
+        return mapComponentBuilders.get( clazz );
     }
 
 }

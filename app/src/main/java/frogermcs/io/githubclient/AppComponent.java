@@ -15,7 +15,8 @@ import frogermcs.io.githubclient.data.api.GithubApiModule;
 @Component(
         modules = {
                 AppModule.class,
-                GithubApiModule.class
+                GithubApiModule.class,
+                AppComponentBuilderModule.class
         }
 )
 public interface AppComponent {

@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import frogermcs.io.githubclient.GithubClientApplication;
 import frogermcs.io.githubclient.R;
 import frogermcs.io.githubclient.data.model.Repository;
+import frogermcs.io.githubclient.ui.activity.component.RepositoriesListActivityComponent;
 import frogermcs.io.githubclient.ui.activity.presenter.RepositoriesListActivityPresenter;
 import frogermcs.io.githubclient.ui.adapter.RepositoriesListAdapter;
 
@@ -48,9 +49,10 @@ public class RepositoriesListActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent() {
-        GithubClientApplication.get(this).getUserComponentSubComponentBuilderHolder()
-                .getRepositoriesListActivityComponentBuilder()
-                .repositoriesListActivity(this)
+        final RepositoriesListActivityComponent.Builder builder = (RepositoriesListActivityComponent.Builder)
+                GithubClientApplication.get(this).getUserComponentSubComponentBuilderHolder().getComponentBuilder(RepositoriesListActivityComponent.class);
+
+        builder.repositoriesListActivity(this)
                 .build()
                 .inject(this);
     }

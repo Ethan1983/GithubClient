@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import frogermcs.io.githubclient.GithubClientApplication;
 import frogermcs.io.githubclient.R;
 import frogermcs.io.githubclient.data.model.Repository;
+import frogermcs.io.githubclient.ui.activity.component.RepositoryDetailsActivityComponent;
 import frogermcs.io.githubclient.ui.activity.presenter.RepositoryDetailsActivityPresenter;
 import frogermcs.io.githubclient.utils.AnalyticsManager;
 
@@ -55,12 +56,12 @@ public class RepositoryDetailsActivity extends BaseActivity {
 
     @Override
     protected void setupActivityComponent() {
-        GithubClientApplication.get(this).getUserComponentSubComponentBuilderHolder()
-                .getRepositoryDetailsActivityComponentBuilder()
-                .repositoryDetailsActivity( this )
+        final RepositoryDetailsActivityComponent.Builder builder = (RepositoryDetailsActivityComponent.Builder)
+                GithubClientApplication.get(this).getUserComponentSubComponentBuilderHolder().getComponentBuilder(RepositoryDetailsActivityComponent.class);
+
+        builder.repositoryDetailsActivity( this )
                 .build()
                 .inject(this);
-
     }
 
     public void setupUserName(String userName) {

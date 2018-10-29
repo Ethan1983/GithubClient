@@ -5,12 +5,13 @@ import android.content.Context;
 
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import frogermcs.io.githubclient.data.UserComponent;
 import frogermcs.io.githubclient.data.UserComponentSubComponentBuilderHolder;
 import frogermcs.io.githubclient.data.model.User;
-import frogermcs.io.githubclient.ui.activity.component.SplashActivityComponent;
 import timber.log.Timber;
 
 /**
@@ -21,10 +22,9 @@ import timber.log.Timber;
     private AppComponent appComponent;
     private UserComponent userComponent;
     private UserComponentSubComponentBuilderHolder userComponentSubComponentBuilderHolder;
+
     @Inject
-    UserComponent.Builder userComponentBuilder;
-    @Inject
-    SplashActivityComponent.Builder splashActivityComponentBuilder;
+    Map< Class<?>,ComponentBuilder> mapComponentbuilders;
 
     public static GithubClientApplication get(Context context) {
         return (GithubClientApplication) context.getApplicationContext();
@@ -50,7 +50,9 @@ import timber.log.Timber;
     }
 
     public UserComponent createUserComponent(User user) {
-        userComponent = userComponentBuilder.user( user ).build();
+        final UserComponent.Builder builder = (UserComponent.Builder) mapComponentbuilders.get(UserComponent.class);
+        assert builder != null;
+        userComponent = builder.user( user ).build();
         userComponentSubComponentBuilderHolder = new UserComponentSubComponentBuilderHolder( userComponent );
         return userComponent;
     }
@@ -68,8 +70,8 @@ import timber.log.Timber;
         return userComponentSubComponentBuilderHolder;
     }
 
-    public SplashActivityComponent.Builder getSplashActivityComponentBuilder() {
-        return splashActivityComponentBuilder;
+    public ComponentBuilder getComponentBuilder( Class<?> clazz ) {
+        return mapComponentbuilders.get(clazz);
     }
 
 }

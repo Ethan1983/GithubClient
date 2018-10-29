@@ -4,11 +4,18 @@ import dagger.Module;
 import dagger.Provides;
 import frogermcs.io.githubclient.data.UserScope;
 import frogermcs.io.githubclient.data.model.User;
+import frogermcs.io.githubclient.ui.activity.component.RepositoriesListActivityComponent;
+import frogermcs.io.githubclient.ui.activity.component.RepositoryDetailsActivityComponent;
 
 /**
  * Created by Miroslaw Stanek on 23.06.15.
  */
-@Module
+@Module(
+        subcomponents = {
+                RepositoriesListActivityComponent.class,
+                RepositoryDetailsActivityComponent.class
+        }
+)
 public abstract class UserModule {
 
     @Provides

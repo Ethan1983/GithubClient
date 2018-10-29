@@ -5,9 +5,12 @@ import android.content.Context;
 
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 
+import javax.inject.Inject;
+
 import frogermcs.io.githubclient.data.UserComponent;
-import frogermcs.io.githubclient.data.api.UserModule;
+import frogermcs.io.githubclient.data.UserComponentSubComponentBuilderHolder;
 import frogermcs.io.githubclient.data.model.User;
+import frogermcs.io.githubclient.ui.activity.component.SplashActivityComponent;
 import timber.log.Timber;
 
 /**
@@ -17,6 +20,11 @@ import timber.log.Timber;
 
     private AppComponent appComponent;
     private UserComponent userComponent;
+    private UserComponentSubComponentBuilderHolder userComponentSubComponentBuilderHolder;
+    @Inject
+    UserComponent.Builder userComponentBuilder;
+    @Inject
+    SplashActivityComponent.Builder splashActivityComponentBuilder;
 
     public static GithubClientApplication get(Context context) {
         return (GithubClientApplication) context.getApplicationContext();
@@ -37,23 +45,31 @@ import timber.log.Timber;
         appComponent = DaggerAppComponent.builder()
                 .application( this )
                 .build();
+
+        appComponent.injectApp( this );
     }
 
     public UserComponent createUserComponent(User user) {
-        userComponent = appComponent.userComponentBuilder().user(user).build();
+        userComponent = userComponentBuilder.user( user ).build();
+        userComponentSubComponentBuilderHolder = new UserComponentSubComponentBuilderHolder( userComponent );
         return userComponent;
     }
 
     public void releaseUserComponent() {
         userComponent = null;
+        userComponentSubComponentBuilderHolder = null;
     }
 
     public AppComponent getAppComponent() {
         return appComponent;
     }
 
-    public UserComponent getUserComponent() {
-        return userComponent;
+    public UserComponentSubComponentBuilderHolder getUserComponentSubComponentBuilderHolder() {
+        return userComponentSubComponentBuilderHolder;
+    }
+
+    public SplashActivityComponent.Builder getSplashActivityComponentBuilder() {
+        return splashActivityComponentBuilder;
     }
 
 }

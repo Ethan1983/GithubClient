@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
 import frogermcs.io.githubclient.data.api.GithubApiModule;
 
 /**
@@ -16,7 +17,8 @@ import frogermcs.io.githubclient.data.api.GithubApiModule;
         modules = {
                 AppModule.class,
                 GithubApiModule.class,
-                AppComponentBuilderModule.class
+                AppComponentBuilderModule.class,
+                AndroidInjectionModule.class
         }
 )
 public interface AppComponent {

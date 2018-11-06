@@ -1,5 +1,6 @@
 package frogermcs.io.githubclient;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -9,6 +10,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import frogermcs.io.githubclient.data.UserComponent;
 import frogermcs.io.githubclient.data.UserComponentSubComponentBuilderHolder;
 import frogermcs.io.githubclient.data.model.User;
@@ -17,11 +21,14 @@ import timber.log.Timber;
 /**
  * Created by Miroslaw Stanek on 22.04.15.
  */
-    public class GithubClientApplication extends Application {
+public class GithubClientApplication extends Application implements HasActivityInjector {
 
     private AppComponent appComponent;
     private UserComponent userComponent;
     private UserComponentSubComponentBuilderHolder userComponentSubComponentBuilderHolder;
+
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
 
     @Inject
     Map< Class<?>,ComponentBuilder> mapComponentbuilders;
@@ -70,8 +77,8 @@ import timber.log.Timber;
         return userComponentSubComponentBuilderHolder;
     }
 
-    public ComponentBuilder getComponentBuilder( Class<?> clazz ) {
-        return mapComponentbuilders.get(clazz);
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingActivityInjector;
     }
-
 }

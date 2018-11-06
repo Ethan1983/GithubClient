@@ -1,12 +1,10 @@
 package frogermcs.io.githubclient.ui.activity.component;
 
-import dagger.BindsInstance;
 import dagger.Subcomponent;
-import frogermcs.io.githubclient.ComponentBuilder;
+import dagger.android.AndroidInjector;
 import frogermcs.io.githubclient.ui.activity.ActivityScope;
 import frogermcs.io.githubclient.ui.activity.SplashActivity;
 import frogermcs.io.githubclient.ui.activity.module.SplashActivityModule;
-import frogermcs.io.githubclient.ui.activity.presenter.SplashActivityPresenter;
 
 /**
  * Created by Miroslaw Stanek on 23.04.15.
@@ -15,13 +13,9 @@ import frogermcs.io.githubclient.ui.activity.presenter.SplashActivityPresenter;
 @Subcomponent(
         modules = SplashActivityModule.class
 )
-public interface SplashActivityComponent {
-
-    SplashActivity inject(SplashActivity splashActivity);
+public interface SplashActivityComponent extends AndroidInjector<SplashActivity> {
 
     @Subcomponent.Builder
-    interface Builder extends ComponentBuilder<SplashActivityComponent> {
-        @BindsInstance Builder splashActivity(SplashActivity splashActivity );
-    }
+    abstract class Builder extends AndroidInjector.Builder<SplashActivity> {}
 
 }
